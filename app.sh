@@ -1,6 +1,6 @@
 ### ZLIB ###
 _build_zlib() {
-local VERSION="1.2.8"
+local VERSION="1.2.11"
 local FOLDER="zlib-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://zlib.net/${FILE}"
@@ -16,10 +16,10 @@ popd
 
 ### OPENSSL ###
 _build_openssl() {
-local VERSION="1.0.2e"
+local VERSION="1.0.2j"
 local FOLDER="openssl-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="http://mirror.switch.ch/ftp/mirror/openssl/source/${FILE}"
+local URL="https://www.openssl.org/source/${FILE}"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
 cp -vf "src/${FOLDER}-parallel-build.patch" "target/${FOLDER}/"
@@ -47,10 +47,10 @@ popd
 
 ### OPENSSH ###
 _build_openssh() {
-local VERSION="7.1p2"
+local VERSION="7.4p1"
 local FOLDER="openssh-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="http://mirror.switch.ch/ftp/pub/OpenBSD/OpenSSH/portable/${FILE}"
+local URL="http://www.ftp.ne.jp/OpenBSD/OpenSSH/portable/${FILE}"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
 pushd "target/${FOLDER}"
@@ -71,15 +71,16 @@ popd
 ### SHADOW ###
 _build_shadow() {
 # version 4.2~4.2.1 does not cross-compile due to missing SUBIDS ifdefs.
-local VERSION="4.1.4.3"
+local VERSION="4.2.1"
 local FOLDER="shadow-${VERSION}"
-local FILE="${FOLDER}.tar.gz"
+local FILE="${FOLDER}.tar.xz"
 local URL="http://pkg-shadow.alioth.debian.org/releases/${FILE}"
 
-_download_tgz "${FILE}" "${URL}" "${FOLDER}"
+_download_xz "${FILE}" "${URL}" "${FOLDER}"
 pushd "target/${FOLDER}"
 sed -i -e "s/DIST_SUBDIRS =.*/DIST_SUBDIRS = /g" -e "/zh_CN zh_TW/d" man/Makefile.in
-./configure --host="${HOST}" --prefix="${DEPS}" --disable-shadowgrp ac_cv_func_setpgrp_void=yes
+patch -u -p0 -d . < ../../src/shadow-4.2.1-subids.patch
+./configure --host="${HOST}" --prefix="${DEPS}" --disable-shadowgrp ac_cv_func_setpgrp_void=yes --enable-subordinate-ids=no
 make
 make install
 mkdir -p "${DEST}/libexec"
@@ -88,9 +89,9 @@ popd
 }
 
 _build() {
-  _build_zlib
-  _build_openssl
-  _build_openssh
+#  _build_zlib
+#  _build_openssl
+#  _build_openssh
   _build_shadow
   _package
 }
