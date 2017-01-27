@@ -89,9 +89,9 @@ popd
 }
 
 _build() {
-#  _build_zlib
-#  _build_openssl
-#  _build_openssh
+  _build_zlib
+  _build_openssl
+  _build_openssh
   _build_shadow
   _package
 }
