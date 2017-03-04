@@ -16,7 +16,7 @@ popd
 
 ### OPENSSL ###
 _build_openssl() {
-local VERSION="1.0.2j"
+local VERSION="1.0.2k"
 local FOLDER="openssl-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="https://www.openssl.org/source/${FILE}"
