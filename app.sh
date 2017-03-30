@@ -47,7 +47,7 @@ popd
 
 ### OPENSSH ###
 _build_openssh() {
-local VERSION="7.4p1"
+local VERSION="7.5p1"
 local FOLDER="openssh-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://www.ftp.ne.jp/OpenBSD/OpenSSH/portable/${FILE}"
