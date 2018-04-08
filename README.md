@@ -5,7 +5,7 @@ This is a set of scripts to package a DroboApp from scratch, i.e., download sour
 
 ## I just want to install the DroboApp, what do I do?
 
-Check the [releases](https://github.com/droboports/openssh/releases) page. If there are no releases available, then you have to compile.
+Check the [releases](https://github.com/ISTweak/drobo_openssh/releases) page. If there are no releases available, then you have to compile.
 
 ## How to compile
 
@@ -14,7 +14,7 @@ First make sure that you have a [working cross-compiling VM](https://github.com/
 Log in the VM, pick a temporary folder (e.g., `~/build`), and then do:
 
 ```
-git clone https://github.com/droboports/openssh.git
+git clone https://github.com/ISTweak/drobo_openssh.git
 cd openssh
 ./build.sh
 ls -la *.tgz
@@ -31,6 +31,7 @@ Each invocation creates a log file with all the generated output.
 * zlib: http://zlib.net/
 * openssl: http://www.openssl.org/
 * openssh: http://www.openssh.com/
+* shadow: https://github.com/shadow-maint/shadow
 
 <sub>**Disclaimer**</sub>
 

@@ -16,7 +16,7 @@ popd
 
 ### OPENSSL ###
 _build_openssl() {
-local VERSION="1.0.2n"
+local VERSION="1.0.2o"
 local FOLDER="openssl-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="https://www.openssl.org/source/${FILE}"
@@ -47,7 +47,7 @@ popd
 
 ### OPENSSH ###
 _build_openssh() {
-local VERSION="7.6p1"
+local VERSION="7.7p1"
 local FOLDER="openssh-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://www.ftp.ne.jp/OpenBSD/OpenSSH/portable/${FILE}"
@@ -70,16 +70,13 @@ popd
 
 ### SHADOW ###
 _build_shadow() {
-# version 4.2~4.2.1 does not cross-compile due to missing SUBIDS ifdefs.
 local VERSION="4.5"
 local FOLDER="shadow-${VERSION}"
 local FILE="${FOLDER}.tar.xz"
 local URL="https://github.com/shadow-maint/shadow/releases/download/${VERSION}/${FILE}"
-
 _download_xz "${FILE}" "${URL}" "${FOLDER}"
 pushd "target/${FOLDER}"
 sed -i -e "s/DIST_SUBDIRS =.*/DIST_SUBDIRS = /g" -e "/zh_CN zh_TW/d" man/Makefile.in
-#patch -u -p0 -d . < ../../src/shadow-4.2.1-subids.patch
 ./configure --host="${HOST}" --prefix="${DEPS}" --disable-shadowgrp ac_cv_func_setpgrp_void=yes --enable-subordinate-ids=no
 make
 make install
