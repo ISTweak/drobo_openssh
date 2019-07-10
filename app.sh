@@ -16,7 +16,7 @@ popd
 
 ### OPENSSL ###
 _build_openssl() {
-local VERSION="1.0.2o"
+local VERSION="1.0.2s"
 local FOLDER="openssl-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="https://www.openssl.org/source/${FILE}"
@@ -29,7 +29,7 @@ patch -p1 -i "${FOLDER}-parallel-build.patch"
   zlib-dynamic --with-zlib-include="${DEPS}/include" --with-zlib-lib="${DEPS}/lib" \
   shared threads linux-armv4 -DL_ENDIAN ${CFLAGS} ${LDFLAGS} \
   -Wa,--noexecstack -Wl,-z,noexecstack \
-  no-asm
+  no-asm -fPIC
 sed -i -e "s/-O3//g" Makefile
 make
 make install_sw
@@ -47,7 +47,7 @@ popd
 
 ### OPENSSH ###
 _build_openssh() {
-local VERSION="7.7p1"
+local VERSION="8.0p1"
 local FOLDER="openssh-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://www.ftp.ne.jp/OpenBSD/OpenSSH/portable/${FILE}"
@@ -70,7 +70,7 @@ popd
 
 ### SHADOW ###
 _build_shadow() {
-local VERSION="4.5"
+local VERSION="4.7"
 local FOLDER="shadow-${VERSION}"
 local FILE="${FOLDER}.tar.xz"
 local URL="https://github.com/shadow-maint/shadow/releases/download/${VERSION}/${FILE}"
